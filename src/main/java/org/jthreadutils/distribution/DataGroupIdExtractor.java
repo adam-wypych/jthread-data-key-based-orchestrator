@@ -52,7 +52,7 @@ package org.jthreadutils.distribution;
  * @since 1.0.0
  * @version %I%, %G%
  */
-public interface DataSubsetKeyExtractor<I, O> {
+public interface DataGroupIdExtractor<I, O> {
 	
 	/**
 	 * This method provides functionality to extracts from given element of data
