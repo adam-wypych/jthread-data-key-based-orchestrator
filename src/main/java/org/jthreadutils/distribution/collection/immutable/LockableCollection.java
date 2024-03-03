@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Interface for implement collections with possibility to switch on/off
  * possibility for modification in any time user wants. This interface allows to
- * block any modification when it shouldn't be possible, mostly in third party
- * code.
+ * block any modification when it shouldn't be possible, mostly for usage
+ * collection with third party code.
  * 
  * @author adam-wypych
  * @since 1.0.0
@@ -18,8 +18,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public interface LockableCollection<T> extends Collection<T> {
 	/**
-	 * Mark collection as immutable. All modifications method should either
-	 * thrown exception or return <code>false</code>.
+	 * Mark collection as immutable. All modifications method should either thrown
+	 * exception or return <code>false</code>.
 	 * 
 	 * @author adam-wypych
 	 * @since 1.0.0
@@ -35,7 +35,7 @@ public interface LockableCollection<T> extends Collection<T> {
 	 * @version %I%, %G%
 	 */
 	void mutable();
-	
+
 	/**
 	 * 
 	 * @param <C>
@@ -50,7 +50,8 @@ public interface LockableCollection<T> extends Collection<T> {
 	default <C> C performOperationIfNotLocked(final Callable<C> action, final AtomicBoolean isLocked) {
 		synchronized (isLocked) {
 			if (isLocked.compareAndSet(true, true)) {
-				throw new UnsupportedOperationException("Operation can't be performed given colleciton is locked for modification.");
+				throw new UnsupportedOperationException(
+						"Operation can't be performed given colleciton is locked for modification.");
 			} else {
 				try {
 					return action.call();
