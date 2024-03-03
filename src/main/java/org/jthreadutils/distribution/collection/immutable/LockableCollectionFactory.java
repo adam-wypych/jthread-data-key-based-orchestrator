@@ -28,10 +28,12 @@ public interface LockableCollectionFactory {
 	 * @version %I%, %G%
 	 * 
 	 * @param <T>                   type of element stored inside collection
+	 * @param <A>                   collection type to be replaced by lockable
+	 *                              version
 	 * @param orginalCollectionType a type of {@link Collection} for which
 	 *                              {@link LockableCollection} should be provided
 	 * @return a {@link LockableCollection} to use as one of option for processing
 	 *         fixed/static amount of data
 	 */
-	<T> LockableCollection<T> createLockableCollection(final Class<? extends Collection<T>> orginalCollectionType);
+	<T, A extends Collection<T>> LockableCollection<T> createLockableCollection(final Class<A> orginalCollectionType);
 }
