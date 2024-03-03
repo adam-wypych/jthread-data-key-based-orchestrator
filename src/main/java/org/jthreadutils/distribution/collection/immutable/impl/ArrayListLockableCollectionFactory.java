@@ -26,7 +26,7 @@ public class ArrayListLockableCollectionFactory implements LockableCollectionFac
 	}
 
 	@Override
-	public <T, A extends Collection<T>> LockableCollection<T> createLockableCollection(final Class<A> orginalCollectionType) {
+	public <T> LockableCollection<T> createLockableCollection(@SuppressWarnings("rawtypes") final Class<? extends Collection> orginalCollectionType) {
 		if (orginalCollectionType == ArrayList.class) {
 			return new ArrayListLockableCollection<T>();
 		} else {

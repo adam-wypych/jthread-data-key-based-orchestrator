@@ -33,7 +33,6 @@ public class ArrayListLockableCollectionFactoryTest {
 		assertThat(error).hasMessage("Type " + AttributeList.class + " is not supported by " + sut.getClass());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void givenOriginalCollectionTypeArrayList__whenAskForCreatingLockableCollectionFactory__thenNewObjectShouldBeReturn() {
 		// execute
