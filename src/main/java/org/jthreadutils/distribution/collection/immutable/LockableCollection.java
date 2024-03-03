@@ -37,12 +37,22 @@ public interface LockableCollection<T> extends Collection<T> {
 	void mutable();
 
 	/**
+	 * Generic method created to check if collection is not being locked for
+	 * modification (marked as immutable) before user called modification method.
 	 * 
-	 * @param <C>
-	 * @param action
-	 * @param isLocked
-	 * @return
+	 * @param <C>      type of result of modification method either {@link Void} or
+	 *                 any other object
+	 * @param action   modification action to be performed wrapped into
+	 *                 {@link Callable} for result type {@link Void} please return
+	 *                 <code>null</code>
+	 * @param isLocked marker used for say if collection is open for modification or
+	 *                 not
+	 * @return result of {@link action}
 	 * 
+	 * @throws UnsupportedOperationException in case collection is marked as
+	 *                                       immutable
+	 * @throws RuntimeException              as wrapper for any {@link Exception}
+	 *                                       from {@link Callable#call()} result
 	 * @author adam-wypych
 	 * @since 1.0.0
 	 * @version %I%, %G%
