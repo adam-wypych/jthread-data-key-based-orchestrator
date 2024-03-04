@@ -59,6 +59,32 @@ public class ArrayListLockableCollectionSingleThreadTests {
 		assertThat(originalCollection).isEqualTo(sut);
 	}
 	
+	@Test
+	public void givenCollectionIsUnlocked__whenAddElement__thenOperationShouldBeSuccesful() throws Exception {
+		// prepare
+		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
+		originalCollection.forEach(e -> { sut.add(e); });
+		
+		// execute
+		assertThat(sut.add("ADD")).isTrue();
+		originalCollection.add("ADD");
+		
+		// verify
+		assertThat(originalCollection).isEqualTo(sut);
+	}
+	
+	@Test
+	public void givenCollectionIsLocked__whenAddElement__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
+		// prepare
+		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
+		originalCollection.forEach(e -> { sut.add(e); });
+		sut.immutable();
+		
+		// execute & verify
+		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.add("ADD"); });
+		assertThat(originalCollection).isEqualTo(sut);
+	}
+	
 	@Before
 	public void setUp() {
 		this.sut = new ArrayListLockableCollection<Object>();
