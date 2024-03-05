@@ -52,14 +52,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenSetElementAtIndex__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.set(3, "<REPLACED>"); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.set(3, "<REPLACED>"); });
 	}
 	
 	@Test
@@ -78,14 +71,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenAddElement__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.add("ADD"); });
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.add("ADD"); });
 	}
 
 	@Test
@@ -104,14 +90,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenAddElementAtIndex__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { sut.add(3, "<INSERTED>"); return null; }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { sut.add(3, "<INSERTED>"); return null; });
 	}
 
 	@Test
@@ -130,14 +109,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenRemoveElementAtIndex__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.remove(3); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.remove(3); });
 	}
 
 	@Test
@@ -156,14 +128,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenRemoveElementAsObject__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.remove("3"); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.remove("3"); });
 	}
 	
 	@Test
@@ -181,14 +146,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenClear__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { sut.clear(); return null; }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { sut.clear(); return null; });
 	}
 
 	@Test
@@ -207,14 +165,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenAddAll__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.addAll(originalCollection); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.addAll(IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList())); });
 	}
 
 	@Test
@@ -233,14 +184,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenAddAllAtIndex__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.addAll(1, originalCollection); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.addAll(1, IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList())); });
 	}
 
 	@Test
@@ -258,14 +202,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenRemoveRange__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { sut.removeRange(2, 4); return null; }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { sut.removeRange(2, 4); return null; });
 	}
 
 	@Test
@@ -285,15 +222,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenRemoveAll__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		final List<Object> toRemove = Arrays.asList("0", "4");
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.removeAll(toRemove); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.removeAll(Arrays.asList("0", "4")); });
 	}
 
 	@Test
@@ -312,15 +241,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 	
 	@Test
 	public void givenCollectionIsLocked__whenRetainAll__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		final List<Object> toRetain = Arrays.asList("0", "4");
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.retainAll(toRetain); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.retainAll(Arrays.asList("0", "4")); });
 	}
 
 	@Test
@@ -339,14 +260,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenRemoveIf__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { return sut.removeIf(e -> e.equals("2")); }); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { return sut.removeIf(e -> e.equals("2")); });
 	}
 
 	@Test
@@ -365,14 +279,7 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenReplaceAll__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
-		// prepare
-		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
-		originalCollection.forEach(e -> { sut.add(e); });
-		sut.immutable();
-		
-		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { sut.replaceAll(e -> e.equals("2")); return null;}); 
-		assertThat(originalCollection).isEqualTo(sut);
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { sut.replaceAll(e -> e.equals("2")); return null;});
 	}
 
 	@Test
@@ -391,19 +298,23 @@ public class ArrayListLockableCollectionSingleThreadTests {
 
 	@Test
 	public void givenCollectionIsLocked__whenSort__thenOperationShouldFailAndCollectionShouldStayUntouched() throws Exception {
+		assertWhenCollectionIsLocked_theModificationWillBeProhibited(() -> { sut.sort(Collections.reverseOrder()); return null; });
+	}
+	
+	@Before
+	public void setUp() {
+		this.sut = new ArrayListLockableCollection<Object>();
+	}
+	
+	private void assertWhenCollectionIsLocked_theModificationWillBeProhibited(@SuppressWarnings("rawtypes") final Callable action) throws Exception {
 		// prepare
 		List<Object> originalCollection = IntStream.range(0, 5).mapToObj(Integer::toString).collect(Collectors.toList());
 		originalCollection.forEach(e -> { sut.add(e); });
 		sut.immutable();
 		
 		// execute & verify
-		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(() -> { sut.sort(Collections.reverseOrder()); return null; }); 
-		assertThat(originalCollection).isEqualTo(sut);
-	}
-	
-	@Before
-	public void setUp() {
-		this.sut = new ArrayListLockableCollection<Object>();
+		assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(action); 
+		assertThat(originalCollection).isEqualTo(sut);		
 	}
 	
 	private void assertThatUnsupportedOperationExceptionWillBeThrown_whenCollectionIsLocked(final Callable<?> callable) throws Exception {
