@@ -1,8 +1,8 @@
 package org.jthreadutils.distribution.collection.immutable.impl;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.concurrent.Callable;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,9 +13,6 @@ import org.junit.Test;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ArrayListLockableCollectionMultiThreadTests {
 
