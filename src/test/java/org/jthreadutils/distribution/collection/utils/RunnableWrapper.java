@@ -29,11 +29,11 @@ import com.google.common.collect.Multimap;
  * @version %I%, %G%
  */
 public class RunnableWrapper implements Runnable {
-	private final Runnable wrappedRunnable;
-	private final Multimap<Runnable, Throwable> errorsPerRunnable;
-	private final List<CountDownLatch> awaiters = new ArrayList<>();
-	private final List<CountDownLatch> notifiersAboutStart = new ArrayList<>();
-	private final List<CountDownLatch> notifiersAboutDone = new ArrayList<>();
+	protected final Runnable wrappedRunnable;
+	protected final Multimap<Runnable, Throwable> errorsPerRunnable;
+	protected final List<CountDownLatch> awaiters = new ArrayList<>();
+	protected final List<CountDownLatch> notifiersAboutStart = new ArrayList<>();
+	protected final List<CountDownLatch> notifiersAboutDone = new ArrayList<>();
 
 	private RunnableWrapper(final Runnable wrappedRunnable, final Multimap<Runnable, Throwable> errorsPerRunnable,
 			final List<CountDownLatch> awaiters, final List<CountDownLatch> notifiersAboutStart,
