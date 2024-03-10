@@ -48,6 +48,9 @@ package org.jthreadutils.distribution;
  *  </tbody>
  * </table>
  * 
+ * @param <I> type of data
+ * @param <O> type of group id object
+ * 
  * @author adam-wypych
  * @since 1.0.0
  * @version %I%, %G%
