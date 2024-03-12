@@ -1,17 +1,17 @@
 package org.jthreadutils.distribution.predefined;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.LongStream;
+import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImmutableCollectionOrchestrationHelperTest {
 
@@ -25,10 +25,10 @@ public class ImmutableCollectionOrchestrationHelperTest {
 		final String groupTwoKey = "GROUP-2";
 		final String groupThreeKey = "GROUP-3";
 
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
-		LongStream.range(1L, 15L).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
-		LongStream.range(15L, 30L).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
-		LongStream.range(18L, 40L).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
+		IntStream.range(1, 15).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
+		IntStream.range(15, 30).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
+		IntStream.range(18, 40).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
 		
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut
@@ -51,10 +51,10 @@ public class ImmutableCollectionOrchestrationHelperTest {
 		final String groupTwoKey = "GROUP-2";
 		final String groupThreeKey = "GROUP-3";
 
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
-		LongStream.range(1L, 15L).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
-		LongStream.range(15L, 18L).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
-		LongStream.range(18L, 40L).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
+		IntStream.range(1, 15).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
+		IntStream.range(15, 18).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
+		IntStream.range(18, 40).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
 		
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut
@@ -72,10 +72,10 @@ public class ImmutableCollectionOrchestrationHelperTest {
 		final String groupTwoKey = "GROUP-2";
 		final String groupThreeKey = "GROUP-3";
 
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
-		LongStream.range(1L, 4L).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
-		LongStream.range(4L, 7L).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
-		LongStream.range(8L, 11L).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
+		IntStream.range(1, 4).forEachOrdered(e -> groupKeysToPositionInList.put(groupOneKey, e));
+		IntStream.range(4, 7).forEachOrdered(e -> groupKeysToPositionInList.put(groupTwoKey, e));
+		IntStream.range(8, 11).forEachOrdered(e ->  groupKeysToPositionInList.put(groupThreeKey, e));
 		
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut
@@ -94,10 +94,10 @@ public class ImmutableCollectionOrchestrationHelperTest {
 		final String groupTwoKey = "GROUP-2";
 		final String groupThreeKey = "GROUP-3";
 
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
-		groupKeysToPositionInList.put(groupOneKey, 1L);
-		groupKeysToPositionInList.put(groupTwoKey, 2L);
-		groupKeysToPositionInList.put(groupThreeKey, 3L);
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
+		groupKeysToPositionInList.put(groupOneKey, 1);
+		groupKeysToPositionInList.put(groupTwoKey, 2);
+		groupKeysToPositionInList.put(groupThreeKey, 3);
 
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut
@@ -113,8 +113,8 @@ public class ImmutableCollectionOrchestrationHelperTest {
 			throws Exception {
 		// prepare
 		final String groupOneKey = "GROUP-1";
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
-		groupKeysToPositionInList.put(groupOneKey, 10L);
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
+		groupKeysToPositionInList.put(groupOneKey, 10);
 
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut
@@ -128,7 +128,7 @@ public class ImmutableCollectionOrchestrationHelperTest {
 	public void givenNoGroupKeys__whenCreateListWithGroupsSortedBasedOnBiggestNumberOfElements__thenEmptyListShouldBeReturn()
 			throws Exception {
 		// prepare
-		final Multimap<String, Long> groupKeysToPositionInList = ArrayListMultimap.create();
+		final Multimap<String, Integer> groupKeysToPositionInList = ArrayListMultimap.create();
 
 		// execute
 		final List<String> groupKeysFromHighestToLowestOccurance = sut

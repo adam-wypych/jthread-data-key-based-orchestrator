@@ -36,7 +36,7 @@ class ImmutableCollectionOrchestrationHelper<O> {
 	 * @since 1.0.0
 	 */
 	public List<O> createListWithGroupsSortedBasedOnBiggestNumberOfElements(
-			final Multimap<O, Long> mappingBetweenGroupKeyAndElementsPositionInsideCollection) {
+			final Multimap<O, Integer> mappingBetweenGroupKeyAndElementsPositionInsideCollection) {
 		final List<O> freeGroupsToProcessSortedBasedOnBiggestNumberOfElements = new ArrayList<>();
 
 		final TreeMultimap<Integer, O> numberOfElementsToGivenGroupKey = collectNumberOfElementsToGivenGroupKeySortedFromBiggestCount(
@@ -50,7 +50,7 @@ class ImmutableCollectionOrchestrationHelper<O> {
 	}
 
 	private TreeMultimap<Integer, O> collectNumberOfElementsToGivenGroupKeySortedFromBiggestCount(
-			final Multimap<O, Long> mappingBetweenGroupKeyAndElementsPositionInsideCollection) {
+			final Multimap<O, Integer> mappingBetweenGroupKeyAndElementsPositionInsideCollection) {
 		final Comparator<O> ignoreValueOrderComparator = (a, b) -> {
 			return 1;
 		};
