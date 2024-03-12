@@ -1,6 +1,7 @@
 package org.jthreadutils.distribution.predefined;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -75,9 +76,9 @@ public class DataOrchestratorBasedOnImmutableCollection<T, O> {
 	public ImmutableCollectionOrchestrationPlan<T, O> createPlan(final Collection<T> data) {
 		final ImmutableCollectionOrchestrationPlanBuilder<T, O> plannerBuilder = ImmutableCollectionOrchestrationPlan
 				.builder(data);
-		long index = 0;
-		for (T elem : data) {
-			plannerBuilder.putElementGroupIdAssignment(index++, groupIdExtractor.extractGroupId(elem));
+		final Iterator<T> iter = data.iterator();
+		for (int index = 0; iter.hasNext(); index++) {
+			plannerBuilder.putElementGroupIdAssignment(index, groupIdExtractor.extractGroupId(iter.next()));
 		}
 
 		return plannerBuilder.build();
