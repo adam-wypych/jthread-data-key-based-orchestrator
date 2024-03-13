@@ -27,7 +27,7 @@ public class CollectionUtils {
 	 * @throws IndexOutOfBoundsException
 	 * @since 1.0.0
 	 */
-	public static <T> Collection<T> getElementsByIndexes(final Collection<T> collection, final Integer... indexes) {
+	public static <T> List<T> getElementsByIndexes(final Collection<T> collection, final Integer... indexes) {
 		return getElementsByIndexes(collection, Arrays.asList(indexes));
 	}
 
@@ -40,7 +40,7 @@ public class CollectionUtils {
 	 * @throws IndexOutOfBoundsException
 	 * @since 1.0.0
 	 */
-	public static <T> Collection<T> getElementsByIndexes(final Collection<T> collection,
+	public static <T> List<T> getElementsByIndexes(final Collection<T> collection,
 			final Collection<Integer> indexes) {
 		final List<Integer> indexesDeduplicatedAndSorted = new ArrayList<>(new TreeSet<>(indexes));
 
