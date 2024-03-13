@@ -64,7 +64,7 @@ public class CollectionUtils {
 		final int collectionSize = collection.size();
 		for (int index : indexes) {
 			if (index < 0 || index >= collectionSize) {
-				throw new IndexOutOfBoundsException(index);
+				throw new IndexOutOfBoundsException("Index " + index + " doesn't exists in collection");
 			}
 		}
 	}
