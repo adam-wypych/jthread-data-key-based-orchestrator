@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.google.common.base.Objects;
+
 /**
  * Helper class which provide functionality missing in JDK and other libraries
  * include Guava around working with {@link Collection}.
@@ -67,5 +69,22 @@ public class CollectionUtils {
 				throw new IndexOutOfBoundsException("Index " + index + " doesn't exists in collection");
 			}
 		}
+	}
+	
+	public static <T> boolean areEqualByContent(final Collection<T> theFirst, final Collection<T> theSecond) {
+		if (theFirst.size() != theSecond.size()) {
+			return false;
+		}
+		
+		Iterator<T> theFirstCollectionIter = theFirst.iterator();
+		Iterator<T> theSecondCollectionIter = theSecond.iterator();
+		
+		while (theFirstCollectionIter.hasNext() && theSecondCollectionIter.hasNext()) {
+			if (!Objects.equal(theFirstCollectionIter.next(), theSecondCollectionIter.next())) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
