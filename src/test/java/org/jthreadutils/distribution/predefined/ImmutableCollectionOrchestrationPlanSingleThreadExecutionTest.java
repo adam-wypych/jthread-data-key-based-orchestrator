@@ -69,12 +69,12 @@ public class ImmutableCollectionOrchestrationPlanSingleThreadExecutionTest {
 		// verify
 		Thread current = Thread.currentThread();
 		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("1", "4", "7", "2", "5");
-		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("3", "6", "9");
+		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("8", "3", "6", "9");
 		assertThat(orchPlan.poolNextBatchOfData(current, 5)).isEmpty();
 	}
 	
 	@Test
-	public void givenThreeGroupWithThreeElementsEach__whenPoolNextBatchOfDataExecutedForthTimes_withThreeElementsInBatchSize__thenFirstAndSecondAndThirdShouldReturnDataAvailable_andLastShouldBeEmpty() throws Exception {
+	public void givenThreeGroupWithThreeElementsEach__whenPoolNextBatchOfDataExecutedFourthTimes_withThreeElementsInBatchSize__thenFirstAndSecondAndThirdShouldReturnDataAvailable_andLastShouldBeEmpty() throws Exception {
 		// prepare
 		final List<String> elements = IntStream.range(1, 10).mapToObj(Integer::toString).collect(Collectors.toList());
 		
@@ -94,32 +94,37 @@ public class ImmutableCollectionOrchestrationPlanSingleThreadExecutionTest {
 	}
 	
 	@Test
-	public void givenThreeGroupWithSixElementsEach__whenPoolNextBatchOfDataExecutedForthTimes_withTwoThreads_withFiveElementsInBatchSize__thenFirstAndSecondAndThirdShouldReturnDataAvailable_andLastShouldBeEmpty() throws Exception {
+	public void givenThreeGroupWithSixSevenEightElements__whenPoolNextBatchOfDataExecutedNineTimes_withTwoThreads_withFiveElementsInBatchSize__thenFirstUntilSixtCallShouldReturnDataAvailable_andLastShouldBeEmpty() throws Exception {
 		// prepare
-		final List<String> elements = IntStream.range(1, 19).mapToObj(Integer::toString).collect(Collectors.toList());
+		final List<String> elements = IntStream.range(0, 21).mapToObj(Integer::toString).collect(Collectors.toList());
 		
 		// execute
 		ImmutableCollectionOrchestrationPlanBuilder<String, String> orchPlanBuilder = ImmutableCollectionOrchestrationPlan.<String,String>builder(elements);
-		orchPlanBuilder.putElementGroupIdAssignment(0, "GROUP-1");
-		orchPlanBuilder.putElementGroupIdAssignment(3, "GROUP-1");
-		orchPlanBuilder.putElementGroupIdAssignment(6, "GROUP-1");
-
-		orchPlanBuilder.putElementGroupIdAssignment(1, "GROUP-2");
-		orchPlanBuilder.putElementGroupIdAssignment(4, "GROUP-2");
-		orchPlanBuilder.putElementGroupIdAssignment(4, "GROUP-2");
-
-		orchPlanBuilder.putElementGroupIdAssignment(2, "GROUP-3");
-		orchPlanBuilder.putElementGroupIdAssignment(5, "GROUP-3");
-		
+		for (int i = 0; i < 6 * 3; i++) {
+			orchPlanBuilder.putElementGroupIdAssignment(i, "GROUP-" + ((i % 3)+1));
+		}
+		orchPlanBuilder.putElementGroupIdAssignment(18, "GROUP-1");
+		orchPlanBuilder.putElementGroupIdAssignment(19, "GROUP-1");
+		orchPlanBuilder.putElementGroupIdAssignment(20, "GROUP-2");
 		ImmutableCollectionOrchestrationPlan<String, String> orchPlan = orchPlanBuilder.build();
 		
 		// verify
-		Thread current = Thread.currentThread();
+		Thread current = new Thread();
 		Thread next = new Thread();
-		/**
-		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("1", "4", "7", "10", "13");
-		assertThat(orchPlan.poolNextBatchOfData(next, 5)).containsExactly("2", "5", "8", "11", "14");
-		assertThat(orchPlan.poolNextBatchOfData(next, 1)).isEmpty();
-		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("3");**/
+		
+		// begin of group-1
+		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("0", "3", "6", "9", "12");
+		// begin of group-2
+		assertThat(orchPlan.poolNextBatchOfData(next, 5)).containsExactly("1", "4", "7", "10", "13");
+		// continue of group-2 and begin of group -3
+		assertThat(orchPlan.poolNextBatchOfData(next, 5)).containsExactly("16", "20", "2", "5", "8");
+		// end of group-1
+		assertThat(orchPlan.poolNextBatchOfData(current, 5)).containsExactly("15", "18", "19");
+		// end of group-3
+		assertThat(orchPlan.poolNextBatchOfData(next, 5)).containsExactly("11", "14", "17");
+		assertThat(orchPlan.poolNextBatchOfData(current, 5)).isEmpty();
+		assertThat(orchPlan.poolNextBatchOfData(next, 5)).isEmpty();
+		assertThat(orchPlan.poolNextBatchOfData(current, 5)).isEmpty();
+		assertThat(orchPlan.poolNextBatchOfData(next, 5)).isEmpty();
 	}	
 }

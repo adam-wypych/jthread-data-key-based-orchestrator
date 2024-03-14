@@ -138,6 +138,7 @@ public class ImmutableCollectionOrchestrationPlan<T, O> {
 			final O groupId = freeGroupsToProcessSortedBasedOnBiggestNumberOfElements.remove(0);
 			dataToProcess.addAll(loadRemainingDataFromGivenGroupForThread(currentThread,
 					freeSlotInCurrentBatch - dataToProcess.size(), groupId));
+			assignmentOfDataGroupIdToThread.put(currentThread, groupId);
 		}
 
 		return dataToProcess;
