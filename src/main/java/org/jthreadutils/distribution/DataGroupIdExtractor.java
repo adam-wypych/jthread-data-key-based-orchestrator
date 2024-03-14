@@ -2,7 +2,7 @@ package org.jthreadutils.distribution;
 
 /**
  * This interface give possibility for developers to provide common
- * identification key for subset of data, which will be handle by dedicated thread.
+ * identification key for subset of data (group id), which will be handle by dedicated thread.
  * 
  * It is developer responsible to chose the best portion of data in order to guarantee that 
  * subset of data will be indicated as sequence of data in relation.
@@ -47,6 +47,9 @@ package org.jthreadutils.distribution;
  *  	</tr>
  *  </tbody>
  * </table>
+ * 
+ * @param <I> type of data
+ * @param <O> type of group id object
  * 
  * @author adam-wypych
  * @since 1.0.0
